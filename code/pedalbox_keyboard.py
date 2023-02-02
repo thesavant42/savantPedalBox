@@ -1,11 +1,15 @@
-# KeyboardPedalBox
-#
-# 2020 @todbot / Tod E. Kurt
+# savant elite usb 
+# Pi Pico 2040
+# Circuitpython 7
+# 
+# based on KeyboardPedalBox 
+# by 2020 @todbot / Tod E. Kurt
+# https://github.com/todbot/MIDIPedalBox/blob/1e16f89d7036b05d4605b5dcf4e90b8b1b0abf1b/code/pedalbox_keyboard.py
 #
 # Extra modules needed:
 # - adafruit_hid (but only "__init.mpy", "keyboard.mpy", "keycode.mpy")
 # - adafruit_debouncer
-#
+# - adafruit_ticks
 
 import board
 from digitalio import DigitalInOut, Direction, Pull
@@ -23,10 +27,9 @@ from adafruit_debouncer import Debouncer
 # https://circuitpython.readthedocs.io/projects/hid/en/latest/api.html
 button_config = [
 		# pin,     (Keycodes and modifier keycodes)
-		[board.D1, (Keycode.SPACEBAR,) ], # just a space
-		[board.D2, (Keycode.A, Keycode.SHIFT, Keycode.GUI) ],# zoom mute
-		[board.D3, (Keycode.C, Keycode.CONTROL) ],
-		[board.D4, (Keycode.H, Keycode.GUI) ], # CMD-H hide
+		[board.GP1, (Keycode.C,) ], # just a c
+		[board.GP6, (Keycode.C,) ], # just a c
+		[board.GP9, (Keycode.C,) ], # just a c
 ]
 debouncers = [] 
 
@@ -35,7 +38,7 @@ time.sleep(1)  # Sleep for a bit to avoid a race condition on some systems
 kbd = Keyboard(usb_hid.devices)
 
 # Built in red LED
-led = DigitalInOut(board.D13)
+led = DigitalInOut(board.GP25)
 led.direction = Direction.OUTPUT
 
 # set up the pins and the debouncer on each pin
